@@ -135,6 +135,36 @@ module Feedzirra
       multi.perform
       return urls.is_a?(String) ? responses.values.first : responses
     end
+    
+    # Fetches and returns multiple XML for many URLS
+    #
+    # === Parameters
+    # [urls<Array>] A single feed URL, or an array of feed URLs.
+    # [options<Hash><Hash>] Valid hash assigned to url for options 
+    # * :user_agent - String that overrides the default user agent.
+    # * :if_modified_since - Time object representing when the feed was last updated.
+    # * :if_none_match - String, an etag for the request that was stored previously.
+    # * :on_success - Block that gets executed after a successful request.
+    # * :on_failure - Block that gets executed after a failed request.
+    # === Returns
+    # A Feed object if a single URL is passed.
+    #
+    # A Hash if multiple URL's are passed. The key will be the URL, and the value the Feed object.
+    def self.fetch_and_parse_multiple(urls, options = {})
+      url_queue = [*urls]
+      multi = Curl::Multi.new
+      responses = {}
+      
+      # I broke these down so I would only try to do 30 simultaneously because
+      # I was getting weird errors when doing a lot. As one finishes it pops another off the queue.
+      # added options[url] to pull the relevant options for each feed
+      url_queue.slice!(0, 30).each do |url|
+        add_url_to_multi(multi, url, url_queue, responses, options[url])
+      end
+ 
+      multi.perform
+      return urls.is_a?(String) ? responses.values.first : responses
+    end
 
     # Decodes the XML document if it was compressed.
     #
