@@ -38,4 +38,15 @@ describe Feedzirra::Parser::RSS do
       @feed.entries.size.should == 10
     end
   end
+  
+  describe "pubsubhubbub parsing" do
+    before(:each) do
+      @feed = Feedzirra::Parser::RSS.parse(sample_push_feed)
+    end
+    
+    it "should parse the push link" do
+      @feed.push_links.size.should == 1
+      @feed.push_links.first.should == "http://pubsubhubbub.appspot.com"
+    end
+  end
 end

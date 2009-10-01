@@ -2,6 +2,10 @@
 
 I'd like feedback on the api and any bugs encountered on feeds in the wild. I've set up a {google group here}[http://groups.google.com/group/feedzirra].
 
+== This version
+
+This is a fork of the brilliant library because I needed to implement Pubsubhubbub/rssCloud detection, multiple feed fetching with libcurl (that also handles the etag/last-modified) and other xml features.
+
 === Description
 
 Feedzirra is a feed library that is designed to get and update many feeds as quickly as possible. This includes using libcurl-multi through the taf2-curb[link:http://github.com/taf2/curb/tree/master] gem for faster http gets, and libxml through nokogiri[link:http://github.com/tenderlove/nokogiri/tree/master] and sax-machine[link:http://github.com/pauldix/sax-machine/tree/master] for faster parsing.
