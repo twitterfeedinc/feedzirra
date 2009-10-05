@@ -236,7 +236,7 @@ module Feedzirra
         curl.headers["If-Modified-Since"] = options[:if_modified_since].httpdate if options.has_key?(:if_modified_since)
         curl.headers["If-None-Match"]     = options[:if_none_match] if options.has_key?(:if_none_match)
         curl.headers["Accept-encoding"]   = 'gzip, deflate' if options.has_key?(:compress)
-        curl.follow_location = true
+        curl.follow_location = options[:follow_location] || true
         curl.userpwd = options[:http_authentication].join(':') if options.has_key?(:http_authentication)
 
         curl.max_redirects = options[:max_redirects] if options[:max_redirects]
