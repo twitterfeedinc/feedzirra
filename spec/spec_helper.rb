@@ -45,6 +45,10 @@ def sample_push_feed
   load_sample("techcrunch_push.xml")
 end
 
+def sample_blogspot_feed
+  load_sample("blogspot_feedburner_push.xml")
+end
+
 def sample_rss_entry_content
   load_sample("TenderLovemakingFirstEntry.xml")
 end

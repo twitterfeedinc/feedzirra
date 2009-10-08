@@ -17,7 +17,8 @@ module Feedzirra
       element :link, :as => :url
       
       elements :link, :as=>:hub_push_links, :value=>:href, :with=>{:rel=>"hub"}
-      elements :"atom10:link", :as => :atom_push_links, :value=>:href, :with=>{:rel=>"hub"}
+      elements :"atom:link", :as => :atom_push_links, :value=>:href, :with=>{:rel=>"hub"}
+      elements :"atom10:link", :as => :atom10_push_links, :value=>:href, :with=>{:rel=>"hub"}
       
       elements :item, :as => :entries, :class => RSSEntry
 
@@ -28,7 +29,7 @@ module Feedzirra
       end
       
       def push_links
-        @hub_push_links || @atom_push_links
+        @hub_push_links || @atom_push_links || @atom10_push_links
       end
     end
 

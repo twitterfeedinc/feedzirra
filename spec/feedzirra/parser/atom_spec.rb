@@ -40,4 +40,33 @@ describe Feedzirra::Parser::Atom do
       @feed.entries.size.should == 10
     end
   end
+  
+  describe "Blogspot feedburner push parsing" do
+    before(:each) do
+      @feed = Feedzirra::Parser::Atom.parse(sample_blogspot_feed)
+    end
+    
+    it "should be able to parse this" do
+      Feedzirra::Parser::Atom.should be_able_to_parse(sample_blogspot_feed)
+    end
+    
+    it "should have entries" do
+      @feed.entries.size.should == 1
+    end
+    
+    it "should have entry title" do
+      @feed.entries[0].title.should_not be_nil
+      @feed.entries[0].title.should == "Hello Blog"
+    end
+    
+    it "should have entry content" do
+      @feed.entries[0].content.should_not be_nil
+      @feed.entries[0].content.should == "This is a test blog. Looking to see how the new posts can be handled.<div class=\"blogger-post-footer\"><img width='1' height='1' src='https://blogger.googleusercontent.com/tracker/4049794448751833673-4230562158470256713?l=tfpush.blogspot.com'/></div>"
+    end
+    
+    it "should have push links" do
+      @feed.push_links.size.should == 1
+      @feed.push_links.first.should == "http://pubsubhubbub.appspot.com"
+    end
+  end
 end
