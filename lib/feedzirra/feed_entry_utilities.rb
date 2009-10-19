@@ -8,7 +8,8 @@ module Feedzirra
       begin
         DateTime.parse(string).feed_utils_to_gm_time
       rescue
-        raise StandardError.new("DATE CAN'T BE PARSED: #{string}")
+        #raise StandardError.new("DATE CAN'T BE PARSED: #{string}")
+        nil
       end
     end
     

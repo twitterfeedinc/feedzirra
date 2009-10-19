@@ -137,6 +137,12 @@ describe Feedzirra::Feed do
     end
 
   end
+  
+  # it "should return a feed give a feedurl that isn't working at the moment" do
+  #   feed = "http://rss.wunderground.com/auto/rss_full/global/stations/11035.xml?units=bot"
+  #   result = Feedzirra::Feed.fetch_and_parse(feed)
+  #   result.should_not be_nil
+  # end
 
   describe '#last_modified_from_header' do
     before(:each) do

@@ -240,7 +240,8 @@ module Feedzirra
         curl.userpwd = options[:http_authentication].join(':') if options.has_key?(:http_authentication)
 
         curl.max_redirects = options[:max_redirects] if options[:max_redirects]
-        curl.timeout = options[:timeout] if options[:timeout]
+        curl.timeout = options[:timeout] || 10
+        curl.connect_timeout = options[:timeout] || 10
         
         curl.on_success do |c|
           add_url_to_multi(multi, url_queue.shift, url_queue, responses, options) unless url_queue.empty?
@@ -256,11 +257,17 @@ module Feedzirra
               responses[url] = feed
               options[:on_success].call(url, feed) if options.has_key?(:on_success)
             rescue Exception => e
+              puts e
               options[:on_failure].call(url, c.response_code, c.header_str, c.body_str) if options.has_key?(:on_failure)
             end
-          else
+          elsif c.response_code
             # puts "Error determining parser for #{url} - #{c.last_effective_url}"
-            # raise NoParserAvailable.new("no valid parser for content.") (this would unfirtunately fail the whole 'multi', so it's not really useable)
+            #raise NoParserAvailable.new("no valid parser for content.") (this would unfirtunately fail the whole 'multi', so it's not really useable)
+            responses[url] = Html.new(c.response_code)
+            
+            options[:on_failure].call(url, c.response_code, c.header_str, c.body_str) if options.has_key?(:on_failure)
+          else
+            puts "Complete Fail"
             options[:on_failure].call(url, c.response_code, c.header_str, c.body_str) if options.has_key?(:on_failure)
           end
         end

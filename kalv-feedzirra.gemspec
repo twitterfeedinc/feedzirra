@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
     "lib/core_ext/string.rb",
     "lib/feedzirra.rb",
     "lib/feedzirra/feed.rb",
+    "lib/feedzirra/html.rb",
     "lib/feedzirra/parser/atom.rb",
     "lib/feedzirra/parser/atom_entry.rb",
     "lib/feedzirra/parser/atom_feed_burner.rb",

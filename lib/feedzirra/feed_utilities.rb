@@ -12,6 +12,10 @@ module Feedzirra
       end
     end
     
+    def not_xml?
+      false
+    end
+    
     def updated?
       @updated
     end
