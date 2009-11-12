@@ -241,7 +241,7 @@ module Feedzirra
 
         curl.max_redirects = options[:max_redirects] if options[:max_redirects]
         curl.timeout = options[:timeout] || 10
-        curl.connect_timeout = options[:timeout] || 10
+        curl.connect_timeout = options[:connect_timeout] || 10
         
         curl.on_success do |c|
           add_url_to_multi(multi, url_queue.shift, url_queue, responses, options) unless url_queue.empty?
