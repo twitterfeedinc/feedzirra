@@ -37,16 +37,6 @@ module Feedzirra
         @url || links.first
       end
       
-      def geo_lat
-        geo_arr = @geo_point.split(' ')
-        geo_arr[0]
-      end
-      
-      def geo_long
-        geo_arr = @geo_point.split(' ')
-        geo_arr[1]
-      end
-      
     end
 
   end
