@@ -35,6 +35,11 @@ module Feedzirra
       elements :category, :as => :categories
 
       element :guid, :as => :id
+      
+      element :"geo:lat", :as => :geo_lat
+      element :"geo:long", :as => :geo_long
+      element :"georss:point", :as => :geo_point
+      
     end
 
   end

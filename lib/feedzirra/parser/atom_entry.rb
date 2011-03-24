@@ -29,9 +29,24 @@ module Feedzirra
       elements :category, :as => :categories, :value => :term
       elements :link, :as => :links, :value => :href
       
+      element :"geo:lat", :as => :geo_lat
+      element :"geo:long", :as => :geo_long
+      element :"georss:point", :as => :geo_point
+      
       def url
         @url || links.first
       end
+      
+      def geo_lat
+        geo_arr = @geo_point.split(' ')
+        geo_arr[0]
+      end
+      
+      def geo_long
+        geo_arr = @geo_point.split(' ')
+        geo_arr[1]
+      end
+      
     end
 
   end
