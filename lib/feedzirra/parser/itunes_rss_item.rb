@@ -25,6 +25,11 @@ module Feedzirra
       element :enclosure, :value => :length, :as => :enclosure_length
       element :enclosure, :value => :type, :as => :enclosure_type
       element :enclosure, :value => :url, :as => :enclosure_url
+      
+      element :"geo:lat", :as => :geo_lat
+      element :"geo:long", :as => :geo_long
+      element :"georss:point", :as => :geo_point
+      
     end
   end
   
