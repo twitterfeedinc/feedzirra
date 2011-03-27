@@ -28,6 +28,11 @@ module Feedzirra
       element :updated
       element :modified, :as => :updated
       elements :category, :as => :categories, :value => :term
+      
+      element :"geo:lat", :as => :geo_lat
+      element :"geo:long", :as => :geo_long
+      element :"georss:point", :as => :geo_point
+      
     end
 
   end
