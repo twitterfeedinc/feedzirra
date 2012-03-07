@@ -183,7 +183,11 @@ module Feedzirra
           xml = c.body_str
         end
       elsif c.header_str.match(/Content-Encoding: deflate/)
-        xml = Zlib::Inflate.inflate(c.body_str)
+        begin
+          xml = Zlib::Inflate.inflate(c.body_str)
+        rescue
+          xml = c.body_str
+        end
       else
         xml = c.body_str
       end
