@@ -16,6 +16,11 @@ module Feedzirra
       element :managingEditor
       element :title
       element :link, :as => :url
+      
+      # add support for pshb hub links
+      elements :link, :as=>:hub_push_links, :value=>:href, :with=>{:rel=>"hub"}
+      elements :"atom:link", :as => :atom_push_links, :value=>:href, :with=>{:rel=>"hub"}
+      elements :"atom10:link", :as => :atom10_push_links, :value=>:href, :with=>{:rel=>"hub"}
 
       # If author is not present use managingEditor on the channel
       element :"itunes:author", :as => :itunes_author
@@ -41,6 +46,10 @@ module Feedzirra
 
       def self.able_to_parse?(xml)
         xml =~ /xmlns:itunes=\"http:\/\/www.itunes.com\/dtds\/podcast-1.0.dtd\"/i
+      end
+      
+      def push_links
+        @hub_push_links || @atom_push_links || @atom10_push_links
       end
 
     end
